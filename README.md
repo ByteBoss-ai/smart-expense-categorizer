@@ -1,57 +1,71 @@
-# Smart Expense Categorizer (ML-based)
+# Smart Expense Categorizer
 
-## Overview
-The **Smart Expense Categorizer** is a machine learning project that automatically classifies financial transactions into predefined categories such as **Food**, **Travel**, **Groceries**, **Shopping**, **Utilities**, and **Entertainment**. This helps users track spending, generate insights, and organize expenses efficiently.
-
-The project uses **TF-IDF vectorization** for text features and **Logistic Regression** for classification.
+A **machine learning-powered application** that automatically categorizes financial transactions based on their descriptions.  
+It helps users **analyze spending patterns**, **visualize expenses**, and **gain insights** into their financial behavior.
 
 ---
 
-## Features
-- Automatically categorizes transaction texts into multiple expense categories.
-- Cleans and preprocesses transaction text by removing unnecessary words and numbers.
-- Uses TF-IDF to extract meaningful textual features.
-- Provides **accuracy metrics** and **classification reports**.
-- Easy to test with new transaction examples.
+## Project Overview
+
+The **Smart Expense Categorizer** takes a transaction description (e.g., _"Dinner at Domino's"_ or _"Paid electricity bill"_)  
+and predicts its expense category — such as **Food**, **Utilities**, **Travel**, **Shopping**, etc.
+
+It uses **Natural Language Processing (NLP)** and **Machine Learning** techniques to learn from historical expense data  
+and classify new transactions accurately.
 
 ---
 
-## Dataset
-- Synthetic dataset generated for common merchants under each category.
-- Each transaction text follows the format:
-"TXN SUCCESSFUL FOR <amount> AT <merchant> VIA DEBIT CARD XXXX"
+## Tech Stack
 
-
-- Example transactions:
-  - `TXN SUCCESSFUL FOR 450 AT PIZZA HUT VIA DEBIT CARD XXXX` → Food
-  - `TXN SUCCESSFUL FOR 2500 AT FLIPKART VIA DEBIT CARD XXXX` → Shopping
-
-- Categories:
-  - **Food**: SWIGGY, ZOMATO, DOMINOS, STARBUCKS, etc.
-  - **Travel**: UBER, OLA, METRO CARD RECHARGE, FLIGHT TICKET, etc.
-  - **Groceries**: BIGBASKET, GROFER, SUPERMARKET, etc.
-  - **Shopping**: AMAZON, FLIPKART, MYNTRA, etc.
-  - **Utilities**: ELECTRICITY BILL, MOBILE RECHARGE, WATER SUPPLY, etc.
-  - **Entertainment**: NETFLIX, PVR CINEMAS, SPOTIFY, etc.
+- **Programming Language:** Python  
+- **Libraries Used:**
+  - `pandas` — data manipulation and cleaning  
+  - `numpy` — numerical operations  
+  - `matplotlib`, `seaborn` — data visualization  
+  - `scikit-learn` — model building and evaluation  
+  - `nltk` — text preprocessing and tokenization  
 
 ---
 
-## Technology Stack
-- **Language**: Python 3
-- **Libraries**:
-  - `pandas`, `numpy` → Data handling
-  - `scikit-learn` → Machine learning
-  - `re` → Text cleaning
-  - `random` → Synthetic data generation
+## Project Workflow
+
+### 1. Data Preprocessing
+- Clean transaction descriptions (remove punctuation, numbers, stopwords).
+- Convert text to lowercase.
+- Tokenize and lemmatize text.
+
+### 2. Feature Engineering
+- Use **TF-IDF Vectorization** to convert text into numerical features.
+
+### 3. Model Building
+- Train a **classification model** (Logistic Regression / SVM / Naive Bayes)  
+  to map transaction text → category.
+
+### 4. Model Evaluation
+- Evaluate model performance using:
+  - Accuracy
+  - Precision
+  - Recall
+  - F1-Score
+  - Confusion Matrix
+
+### 5. Prediction
+- Enter a new transaction description to predict its category.
 
 ---
 
-## Installation
-Clone the repository:
-   ```bash
-   git clone <repository_url>
-   cd smart-expense-categorizer
+## Why Use a Pipeline?
 
+A **Pipeline** in scikit-learn is used to combine preprocessing and model steps  
+into a single, reusable object.
 
+Example:
+```python
+from sklearn.pipeline import Pipeline
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
 
-
+model = Pipeline([
+    ('tfidf', TfidfVectorizer(stop_words='english')),
+    ('clf', LogisticRegression())
+])
